@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanalbay Creative</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@700&display=swap');
+        
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            font-weight: 300;
+            scroll-behavior: smooth;
+        }
+        .heading { font-family: 'Playfair Display', sans-serif; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .video-card {
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .video-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.6);
+        }
+        .video-card img {
+            transition: transform 0.9s ease;
+        }
+        .video-card:hover img {
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 glass rounded-3xl px-6 py-4 shadow-2xl">
+        <div class="flex items-center gap-4 md:gap-8 text-sm font-medium">
+            <a onclick="smoothScrollTo('home')" class="glass-btn px-7 py-3 rounded-2xl cursor-pointer">Ana Sayfa</a>
+            <a onclick="smoothScrollTo('portfolio')" class="glass-btn px-7 py-3 rounded-2xl cursor-pointer">Portföy</a>
+            <a onclick="smoothScrollTo('contact')" class="glass-btn px-7 py-3 rounded-2xl cursor-pointer">İletişim</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-950 to-black">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h1 class="heading text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-6">
+                KANALBAY<br>CREATIVE
+            </h1>
+            <p class="text-xl md:text-2xl text-zinc-400">Sinematik Hikâyeler • Görsel Dünyalar</p>
+            
+            <button onclick="smoothScrollTo('portfolio')" 
+                    class="mt-16 px-10 py-6 rounded-3xl glass-btn text-lg font-medium flex items-center gap-3 mx-auto">
+                Portföyleri Keşfet <i class="fa-solid fa-arrow-down ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="py-24 bg-zinc-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-20">Portföy</h2>
+
+            <!-- Görsel Çalışmalar -->
+            <div class="mb-24">
+                <h3 class="text-3xl mb-10 text-center md:text-left">📸 Görsel Çalışmalar</h3>
+                <div id="visual-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Video Çalışmalar -->
+            <div>
+                <h3 class="text-3xl mb-10 text-center md:text-left">🎥 Video Çalışmalar</h3>
+                <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 bg-black">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="heading text-5xl md:text-6xl mb-12">İletişime Geç</h2>
+            <a href="mailto:kanalbaycreative@gmail.com" class="text-2xl hover:text-teal-400 block mb-4">
+                kanalbaycreative@gmail.com
+            </a>
+            <a href="https://instagram.com/kanalbaycreative" target="_blank" class="text-2xl hover:text-teal-400">
+                @kanalbaycreative
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-zinc-500 text-sm">
+        © 2026 Kanalbay Creative • Tüm Hakları Saklıdır
+    </footer>
+
+    <!-- VIDEO MODAL -->
+    <div id="video-modal" class="hidden fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4">
+        <div class="w-full max-w-5xl bg-zinc-900 rounded-3xl overflow-hidden">
+            <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                <h3 id="modal-title" class="text-xl font-medium"></h3>
+                <button onclick="closeModal()" class="text-4xl leading-none hover:text-teal-400">×</button>
+            </div>
+            <div id="modal-player" class="aspect-video bg-black"></div>
+        </div>
+    </div>
+
+    <script>
+        // ====================== BURAYI KENDİ LİNKLERİNİZLE GÜNCELLEYİN ======================
+        const visualImages = [
+            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual1.jpg",
+            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual2.jpg",
+            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual3.jpg",
+            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual4.jpg"
+        ];
+
+        const videoProjects = [
+            { id: "VIDEO_ID_1", title: "Metin2TC",   thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/metin2tc.png" },
+            { id: "VIDEO_ID_2", title: "Kafkas2",   thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/kafkas2.png" },
+            { id: "VIDEO_ID_3", title: "Kuzey2",    thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/kuzey2.png" },
+            { id: "VIDEO_ID_4", title: "Mergen2",   thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/mergen2.png" }
+        ];
+
+        function smoothScrollTo(id) {
+            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+        }
+
+        function renderVisual() {
+            document.getElementById('visual-grid').innerHTML = visualImages.map(src => `
+                <div class="aspect-[4/3] overflow-hidden rounded-3xl cursor-pointer shadow-xl">
+                    <img src="${src}" loading="lazy" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="">
+                </div>
+            `).join('');
+        }
+
+        function renderVideos() {
+            document.getElementById('video-grid').innerHTML = videoProjects.map(p => `
+                <div onclick="playVideo('${p.id}', '${p.title}')" 
+                     class="video-card bg-zinc-800 rounded-3xl cursor-pointer overflow-hidden">
+                    <img src="${p.thumbnail}" loading="lazy" class="w-full aspect-video object-cover" alt="${p.title}">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-medium">${p.title}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function playVideo(id, title) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-player').innerHTML = `
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" 
+                        frameborder="0" allowfullscreen allow="autoplay"></iframe>
+            `;
+            document.getElementById('video-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('video-modal').classList.add('hidden');
+        }
+
+        // Sayfa yüklendiğinde
+        window.onload = () => {
+            renderVisual();
+            renderVideos();
+        };
+    </script>
+</body>
+</html>
