@@ -53,11 +53,18 @@
 
         .video-thumbnail {
             width: 100%;
-            height: 240px;
+            height: 220px;
             object-fit: contain;
             object-position: center;
             background: #111113;
-            padding: 30px;
+            padding: 25px;
+        }
+
+        .sub-video {
+            transition: all 0.3s ease;
+        }
+        .sub-video:hover {
+            background: #1f2937;
         }
     </style>
 </head>
@@ -133,29 +140,18 @@
     <script>
         const videoProjects = [
             { 
-                id: "PLIgadixzvY9iLcDWWGcoLyM9mAHSOTH_d", 
                 title: "Metin2TC", 
-                isPlaylist: true,
-                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png" 
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png",
+                isSpecial: true,
+                videos: [
+                    { id: "JOWkXkDfFr8", title: "Video 1" },
+                    { id: "7LhpRxpch54", title: "Video 2" },
+                    { id: "lMpO_31ffnc", title: "Video 3" }
+                ]
             },
-            { 
-                id: "VIDEO_ID_BURAYA", 
-                title: "Kafkas2", 
-                isPlaylist: false,
-                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" 
-            },
-            { 
-                id: "VIDEO_ID_BURAYA", 
-                title: "Kuzey2", 
-                isPlaylist: false,
-                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" 
-            },
-            { 
-                id: "VIDEO_ID_BURAYA", 
-                title: "Mergen2", 
-                isPlaylist: false,
-                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" 
-            }
+            { id: "VIDEO_ID_BURAYA", title: "Kafkas2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kuzey2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Mergen2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" }
         ];
 
         function smoothScrollTo(id) {
@@ -163,31 +159,63 @@
         }
 
         function renderVideos() {
-            document.getElementById('video-grid').innerHTML = videoProjects.map(p => `
-                <div onclick="playVideo('${p.id}', '${p.title}', ${p.isPlaylist})" 
-                     class="video-card rounded-3xl cursor-pointer overflow-hidden">
-                    <img src="${p.thumbnail}" loading="lazy" class="video-thumbnail" alt="${p.title}">
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-medium tracking-wider">${p.title}</h3>
-                    </div>
-                </div>
-            `).join('');
+            let html = '';
+            videoProjects.forEach(p => {
+                if (p.isSpecial) {
+                    html += `
+                        <div onclick="toggleMetin2TC(this)" class="video-card rounded-3xl cursor-pointer overflow-hidden">
+                            <img src="${p.thumbnail}" loading="lazy" class="video-thumbnail" alt="${p.title}">
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-medium">${p.title}</h3>
+                            </div>
+                        </div>
+                        <div id="metin2tc-videos" class="hidden grid grid-cols-1 gap-4 mt-4"></div>
+                    `;
+                } else {
+                    html += `
+                        <div onclick="playVideo('${p.id}', '${p.title}')" class="video-card rounded-3xl cursor-pointer overflow-hidden">
+                            <img src="${p.thumbnail}" loading="lazy" class="video-thumbnail" alt="${p.title}">
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-medium">${p.title}</h3>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            document.getElementById('video-grid').innerHTML = html;
         }
 
-        function playVideo(id, title, isPlaylist) {
-            document.getElementById('modal-title').textContent = title;
-            
-            let url = isPlaylist 
-                ? `https://www.youtube.com/embed/videoseries?list=${id}&autoplay=1` 
-                : `https://www.youtube.com/embed/${id}?autoplay=1`;
+        function toggleMetin2TC(card) {
+            const subVideos = document.getElementById('metin2tc-videos');
+            subVideos.classList.toggle('hidden');
 
+            if (!subVideos.classList.contains('hidden')) {
+                const videos = [
+                    { id: "JOWkXkDfFr8", title: "Video 1" },
+                    { id: "7LhpRxpch54", title: "Video 2" },
+                    { id: "lMpO_31ffnc", title: "Video 3" }
+                ];
+
+                let html = '';
+                videos.forEach(v => {
+                    html += `
+                        <div onclick="playVideo('${v.id}', '${v.title}')" 
+                             class="sub-video bg-zinc-900 p-5 rounded-2xl cursor-pointer flex items-center gap-4 hover:bg-zinc-800">
+                            <i class="fa-solid fa-play text-teal-400"></i>
+                            <span class="font-medium">${v.title}</span>
+                        </div>
+                    `;
+                });
+                subVideos.innerHTML = html;
+            }
+        }
+
+        function playVideo(id, title) {
+            document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-player').innerHTML = `
                 <iframe width="100%" height="100%" 
-                        src="${url}" 
-                        frameborder="0" 
-                        allowfullscreen 
-                        allow="autoplay; encrypted-media">
-                </iframe>
+                        src="https://www.youtube.com/embed/${id}?autoplay=1" 
+                        frameborder="0" allowfullscreen allow="autoplay"></iframe>
             `;
             document.getElementById('video-modal').classList.remove('hidden');
         }
