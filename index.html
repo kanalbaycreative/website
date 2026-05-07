@@ -22,17 +22,29 @@
 
         /* NAVBAR */
         .glass-nav {
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(40px);
             border: 1px solid rgba(20, 184, 166, 0.25);
             max-width: 680px;
             width: 94%;
         }
 
-        #nav-links a {
-            padding: 12px 22px;
-            font-size: 1.05rem;
-            white-space: nowrap;
+        .nav-link {
+            padding: 12px 24px;
+            border-radius: 9999px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-link:hover {
+            background-color: rgba(20, 184, 166, 0.08);
+            color: #14b8a6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background-color: rgba(20, 184, 166, 0.15);
+            color: #14b8a6;
+            box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.3) inset;
         }
 
         /* HERO */
@@ -71,6 +83,71 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Butonlar */
+        .hero-btn {
+            position: relative;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #1f1f22, #111113);
+            color: white;
+            border: 1px solid #3a3a3f;
+            padding: 1.75rem 3.5rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: inset 0 6px 12px rgba(0,0,0,0.7), 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(4px);
+            border-color: #14b8a6;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(145deg, #0f766e, #14b8a6);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1.75rem 2.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-secondary:hover {
+            transform: translateX(6px);
+        }
+
+        .arrow-down { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-primary:hover .arrow-down { transform: translateY(6px); }
+
+        .arrow-right { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-secondary:hover .arrow-right { transform: translateX(8px); }
+
+        /* Diğer stiller */
+        .video-card {
+            background: #111113;
+            border: 1px solid #27272a;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .video-card:hover {
+            border-color: #14b8a6;
+            box-shadow: 0 0 35px -10px rgba(20, 184, 166, 0.35);
+        }
+
+        .contact-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(20, 184, 166, 0.25);
+        }
+
         .fade-in {
             opacity: 0;
             transform: translateY(50px);
@@ -79,17 +156,6 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        .video-card {
-            background: #111113;
-            border: 1px solid #27272a;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .video-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--teal);
-            box-shadow: 0 25px 40px -10px rgba(20, 184, 166, 0.2);
         }
     </style>
 </head>
@@ -101,17 +167,13 @@
             <button id="hamburger" class="md:hidden text-3xl p-2 text-white">
                 <i class="fa-solid fa-bars"></i>
             </button>
-            
-            <div class="hidden md:flex items-center gap-2 text-base font-medium relative w-full justify-center" id="nav-links">
-                <a onclick="navigateTo(this, 'home')" class="nav-link cursor-pointer hover:text-teal-400 transition">Ana Sayfa</a>
-                <a onclick="navigateTo(this, 'portfolio')" class="nav-link cursor-pointer hover:text-teal-400 transition">Portföy</a>
-                <a onclick="navigateTo(this, 'contact')" class="nav-link cursor-pointer hover:text-teal-400 transition">İletişim</a>
+            <div class="hidden md:flex items-center gap-2 text-base font-medium w-full justify-center" id="nav-links">
+                <a onclick="navigateTo(this, 'home')" class="nav-link cursor-pointer">Ana Sayfa</a>
+                <a onclick="navigateTo(this, 'portfolio')" class="nav-link cursor-pointer">Portföy</a>
+                <a onclick="navigateTo(this, 'contact')" class="nav-link cursor-pointer">İletişim</a>
             </div>
-
-            <div id="highlight" class="nav-highlight hidden md:block absolute bottom-0 h-0.5 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full transition-all duration-300"></div>
         </div>
 
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-6 pt-6 border-t border-zinc-700">
             <div class="flex flex-col text-center text-lg gap-1">
                 <a onclick="smoothScrollTo('home')" class="py-5 hover:bg-zinc-900 rounded-2xl transition">Ana Sayfa</a>
@@ -133,14 +195,13 @@
             </p>
            
             <div class="mt-20 flex flex-col sm:flex-row gap-6 justify-center fade-in" style="animation-delay: 700ms">
-                <button onclick="smoothScrollTo('portfolio')"
-                        class="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 px-14 py-6 rounded-3xl text-xl font-semibold flex items-center gap-4 transition-all active:scale-95">
+                <button onclick="smoothScrollTo('portfolio')" class="hero-btn btn-primary">
                     Portföyleri Keşfet
-                    <i class="fa-solid fa-arrow-down-long"></i>
+                    <i class="fa-solid fa-arrow-down-long arrow-down"></i>
                 </button>
-                <button onclick="smoothScrollTo('contact')"
-                        class="px-12 py-6 rounded-3xl text-lg border-2 border-zinc-600 hover:border-teal-400 transition-all active:scale-95">
-                    İletişime Geç
+                <button onclick="smoothScrollTo('contact')" class="hero-btn btn-secondary">
+                    <span>İletişime Geç</span>
+                    <i class="fa-solid fa-arrow-right arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -165,22 +226,31 @@
 
     <!-- CONTACT -->
     <section id="contact" class="py-28 bg-black">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="heading text-5xl md:text-6xl mb-20 fade-in">İletişime Geç</h2>
-            <div class="flex flex-col items-center gap-16">
-                <a href="mailto:kanalbaycreative@gmail.com" class="group flex items-center gap-8 text-3xl hover:text-teal-400 transition-all fade-in">
-                    <i class="fa-solid fa-envelope text-6xl group-hover:scale-110 transition"></i>
-                    <div>
-                        <p class="text-xl">E-posta</p>
-                        <p class="text-zinc-400">kanalbaycreative@gmail.com</p>
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="heading text-5xl md:text-6xl font-bold mb-6 fade-in">İletişime Geç</h2>
+            <p class="text-xl text-zinc-400 max-w-2xl mx-auto mb-16 fade-in" style="animation-delay: 200ms">
+                Projeleriniz için birlikte çalışalım. Fikirlerinizi duymak isteriz.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <a href="mailto:kanalbaycreative@gmail.com" 
+                   class="contact-card group bg-zinc-900 border border-zinc-700 hover:border-teal-500 rounded-3xl p-10 flex flex-col items-center text-center transition-all">
+                    <div class="w-20 h-20 flex items-center justify-center bg-teal-500/10 rounded-2xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-envelope text-5xl text-teal-400"></i>
                     </div>
+                    <h3 class="text-2xl font-semibold mb-3">E-posta</h3>
+                    <p class="text-teal-400 text-lg mb-2">kanalbaycreative@gmail.com</p>
+                    <p class="text-zinc-500 text-sm">Genellikle 24 saat içinde cevap veririz</p>
                 </a>
-                <a href="https://instagram.com/kanalbaycreative" target="_blank" class="group flex items-center gap-8 text-3xl hover:text-teal-400 transition-all fade-in">
-                    <i class="fa-brands fa-instagram text-6xl group-hover:scale-110 transition"></i>
-                    <div>
-                        <p class="text-xl">Instagram</p>
-                        <p class="text-zinc-400">@kanalbaycreative</p>
+
+                <a href="https://instagram.com/kanalbaycreative" target="_blank"
+                   class="contact-card group bg-zinc-900 border border-zinc-700 hover:border-teal-500 rounded-3xl p-10 flex flex-col items-center text-center transition-all">
+                    <div class="w-20 h-20 flex items-center justify-center bg-teal-500/10 rounded-2xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-instagram text-5xl text-teal-400"></i>
                     </div>
+                    <h3 class="text-2xl font-semibold mb-3">Instagram</h3>
+                    <p class="text-teal-400 text-lg mb-2">@kanalbaycreative</p>
+                    <p class="text-zinc-500 text-sm">DM üzerinden de ulaşabilirsiniz</p>
                 </a>
             </div>
         </div>
@@ -202,7 +272,6 @@
     </div>
 
     <script>
-        // Navbar
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -218,25 +287,12 @@
             if (window.innerWidth < 768) mobileMenu.classList.add('hidden');
         }
 
-        function moveHighlight(el) {
-            const highlight = document.getElementById('highlight');
-            const container = document.getElementById('nav-links');
-            if (window.innerWidth >= 768 && el && container) {
-                const rect = el.getBoundingClientRect();
-                const contRect = container.getBoundingClientRect();
-                highlight.style.left = `${rect.left - contRect.left}px`;
-                highlight.style.width = `${rect.width}px`;
-                highlight.style.height = '3px';
-                highlight.style.bottom = '6px';
-            }
-        }
-
         function navigateTo(el, section) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            el.classList.add('active');
             smoothScrollTo(section);
-            moveHighlight(el);
         }
 
-        // Portföy Verileri
         const visualWorks = [
             { title: "Metin2TC - Karakter Paketi", img: "https://picsum.photos/id/1015/800/600", desc: "Oyun içi karakter ve logo tasarımı" },
             { title: "Kafkas 2 - Afiş Serisi", img: "https://picsum.photos/id/201/800/600", desc: "Sinematik tanıtım afişleri" },
@@ -341,19 +397,17 @@
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderVisuals();
             renderVideos();
             handleScrollAnimations();
             
             setTimeout(() => {
-                const first = document.querySelector('.nav-link');
-                if (first) moveHighlight(first);
+                const firstLink = document.querySelector('.nav-link');
+                if (firstLink) firstLink.classList.add('active');
             }, 600);
         });
 
-        // ESC tuşu ile modal kapatma
         document.addEventListener('keydown', (e) => {
             if (e.key === "Escape") closeModal();
         });
