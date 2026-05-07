@@ -7,11 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
        
         body {
             font-family: 'Inter', system-ui, sans-serif;
-            font-weight: 300;
             scroll-behavior: smooth;
             background: #0a0a0a;
             color: #f1f5f9;
@@ -19,43 +18,42 @@
         .heading { font-family: 'Playfair Display', sans-serif; }
 
         .glass-nav {
-            background: rgba(10, 10, 10, 0.72);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(45, 212, 191, 0.15);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(28px);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
 
-        .nav-link:hover { color: #14b8a6; }
-
-        .hero-title {
-            animation: titleZoom 1.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        .nav-link {
+            font-size: 1.05rem;
+            font-weight: 500;
+            padding: 12px 26px;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
-        @keyframes titleZoom {
-            0% { opacity: 0; transform: scale(0.75) translateY(60px); filter: blur(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+
+        .nav-highlight {
+            position: absolute;
+            height: 44px;
+            background: rgba(20, 184, 166, 0.18);
+            border: 2px solid #14b8a6;
+            border-radius: 9999px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            opacity: 0;
         }
 
-        /* PORTFÖY KARTLARI - Basit Turkuaz Border */
         .video-card {
             background: #111113;
             border: 1px solid rgba(45, 212, 191, 0.3);
             transition: all 0.4s ease;
         }
-
         .video-card:hover {
             border-color: #14b8a6;
             border-width: 2px;
-            box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.1);
-        }
-
-        .explore-btn {
-            background: linear-gradient(to right, #14b8a6, #22d3ee);
-            color: black;
-            transition: all 0.4s ease;
-        }
-        .explore-btn:hover {
-            background: linear-gradient(to right, #27272a, #3f3f46);
-            color: white;
+            transform: translateY(-8px);
         }
 
         .fade-in {
@@ -67,29 +65,43 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .explore-btn {
+            background: linear-gradient(135deg, #14b8a6, #0f766e);
+            box-shadow: 0 10px 30px -10px rgba(20, 184, 166, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .explore-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 40px -10px rgba(20, 184, 166, 0.7);
+            background: linear-gradient(135deg, #22d3b8, #14b8a6);
+        }
     </style>
 </head>
 <body class="bg-[#0a0a0a] text-slate-200 overflow-x-hidden">
 
     <!-- NAVBAR -->
-    <nav class="glass-nav fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-3xl px-6 py-3.5 shadow-2xl w-[90%] max-w-[340px]">
-        <div class="flex items-center justify-between">
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a onclick="smoothScrollTo('home')" class="nav-link cursor-pointer hover:text-teal-400 transition">Ana Sayfa</a>
-                <a onclick="smoothScrollTo('portfolio')" class="nav-link cursor-pointer hover:text-teal-400 transition">Portföy</a>
-                <a onclick="smoothScrollTo('contact')" class="nav-link cursor-pointer hover:text-teal-400 transition">İletişim</a>
-            </div>
-
-            <button id="hamburger" class="md:hidden text-2xl">
+    <nav class="glass-nav fixed top-6 left-1/2 -translate-x-1/2 z-50 rounded-3xl px-6 py-2 shadow-2xl w-[92%] max-w-[420px]">
+        <div class="nav-container relative flex items-center justify-between md:justify-center">
+            <button id="hamburger" class="md:hidden text-2xl p-2">
                 <i class="fa-solid fa-bars"></i>
             </button>
+
+            <div class="hidden md:flex items-center gap-1 text-sm font-medium relative" id="nav-links">
+                <a onclick="navigateTo(this, 'home')" class="nav-link cursor-pointer">Ana Sayfa</a>
+                <a onclick="navigateTo(this, 'portfolio')" class="nav-link cursor-pointer">Portföy</a>
+                <a onclick="navigateTo(this, 'contact')" class="nav-link cursor-pointer">İletişim</a>
+            </div>
+
+            <div id="highlight" class="nav-highlight hidden md:block"></div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden mt-5 pt-5 border-t border-teal-400/30">
-            <div class="flex flex-col gap-4 text-center">
-                <a onclick="smoothScrollTo('home'); closeMobileMenu()" class="nav-link py-3 cursor-pointer hover:text-teal-400">Ana Sayfa</a>
-                <a onclick="smoothScrollTo('portfolio'); closeMobileMenu()" class="nav-link py-3 cursor-pointer hover:text-teal-400">Portföy</a>
-                <a onclick="smoothScrollTo('contact'); closeMobileMenu()" class="nav-link py-3 cursor-pointer hover:text-teal-400">İletişim</a>
+        <!-- Mobil Menü -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 py-4 border-t border-zinc-700">
+            <div class="flex flex-col gap-3 text-center">
+                <a onclick="smoothScrollTo('home')" class="py-3 text-lg">Ana Sayfa</a>
+                <a onclick="smoothScrollTo('portfolio')" class="py-3 text-lg">Portföy</a>
+                <a onclick="smoothScrollTo('contact')" class="py-3 text-lg">İletişim</a>
             </div>
         </div>
     </nav>
@@ -97,7 +109,7 @@
     <!-- HERO -->
     <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 via-[#0a0a0a] to-black pt-20">
         <div class="max-w-5xl mx-auto text-center px-6">
-            <h1 class="heading text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-6 hero-title text-white">
+            <h1 class="heading text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-6 text-white">
                 KANALBAY<br>CREATIVE
             </h1>
             <p class="text-xl md:text-2xl text-zinc-400 fade-in" style="animation-delay: 400ms">
@@ -105,10 +117,13 @@
             </p>
            
             <div class="mt-20 flex flex-col sm:flex-row gap-6 justify-center fade-in" style="animation-delay: 700ms">
-                <button onclick="smoothScrollTo('portfolio')" class="explore-btn px-12 py-7 rounded-3xl text-lg font-medium flex items-center gap-3">
-                    Portföyleri Keşfet <i class="fa-solid fa-arrow-down"></i>
+                <button onclick="smoothScrollTo('portfolio')" 
+                        class="explore-btn px-14 py-7 rounded-3xl text-lg font-semibold flex items-center gap-3 text-white">
+                    Portföyleri Keşfet 
+                    <i class="fa-solid fa-arrow-down-long"></i>
                 </button>
-                <button onclick="smoothScrollTo('contact')" class="px-12 py-7 rounded-3xl text-lg font-medium border border-zinc-600 hover:border-teal-400 hover:bg-zinc-900 transition-all">
+                <button onclick="smoothScrollTo('contact')" 
+                        class="px-12 py-7 rounded-3xl text-lg font-medium border border-zinc-600 hover:border-teal-400 hover:bg-zinc-900 transition-all">
                     İletişime Geç
                 </button>
             </div>
@@ -118,15 +133,15 @@
     <!-- PORTFOLIO -->
     <section id="portfolio" class="py-28 bg-[#0a0a0a]">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-20 fade-in section-title">Portföy</h2>
+            <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-20 fade-in">Portföy</h2>
             
             <div class="mb-28">
-                <h3 class="section-title text-3xl mx-auto mb-12 text-center fade-in">Görsel Çalışmalar</h3>
+                <h3 class="text-3xl text-center mb-12 fade-in">Görsel Çalışmalar</h3>
                 <div id="visual-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
             </div>
 
             <div>
-                <h3 class="section-title text-3xl mx-auto mb-12 text-center fade-in">Video Çalışmalar</h3>
+                <h3 class="text-3xl text-center mb-12 fade-in">Video Çalışmalar</h3>
                 <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
             </div>
         </div>
@@ -136,14 +151,20 @@
     <section id="contact" class="py-28 bg-black">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="heading text-5xl md:text-6xl mb-16 fade-in">İletişime Geç</h2>
-            <div class="flex flex-col items-center gap-10">
-                <a href="mailto:kanalbaycreative@gmail.com" class="flex items-center gap-5 text-2xl hover:text-teal-400 transition group">
-                    <i class="fa-solid fa-envelope text-4xl group-hover:scale-110 transition"></i>
-                    <span>kanalbaycreative@gmail.com</span>
+            <div class="flex flex-col items-center gap-12">
+                <a href="mailto:kanalbaycreative@gmail.com" class="flex items-center gap-6 text-2xl hover:text-teal-400 transition group">
+                    <i class="fa-solid fa-envelope text-5xl group-hover:scale-110 transition"></i>
+                    <div>
+                        <p class="text-xl font-medium">E-posta</p>
+                        <p class="text-zinc-400">kanalbaycreative@gmail.com</p>
+                    </div>
                 </a>
-                <a href="https://instagram.com/kanalbaycreative" target="_blank" class="flex items-center gap-5 text-2xl hover:text-teal-400 transition group">
-                    <i class="fa-brands fa-instagram text-4xl group-hover:scale-110 transition"></i>
-                    <span>@kanalbaycreative</span>
+                <a href="https://instagram.com/kanalbaycreative" target="_blank" class="flex items-center gap-6 text-2xl hover:text-teal-400 transition group">
+                    <i class="fa-brands fa-instagram text-5xl group-hover:scale-110 transition"></i>
+                    <div>
+                        <p class="text-xl font-medium">Instagram</p>
+                        <p class="text-zinc-400">@kanalbaycreative</p>
+                    </div>
                 </a>
             </div>
         </div>
@@ -165,7 +186,43 @@
     </div>
 
     <script>
-        // Veriler ve scriptler (tam hali)
+        // ==================== NAVBAR ====================
+        function moveHighlight(el) {
+            const highlight = document.getElementById('highlight');
+            const navContainer = document.getElementById('nav-links');
+            
+            if (window.innerWidth >= 768 && el && navContainer) {
+                const rect = el.getBoundingClientRect();
+                const containerRect = navContainer.getBoundingClientRect();
+                
+                highlight.style.left = `${rect.left - containerRect.left}px`;
+                highlight.style.width = `${rect.width}px`;
+                highlight.style.opacity = '1';
+                highlight.classList.remove('hidden');
+            }
+        }
+
+        function navigateTo(el, section) {
+            smoothScrollTo(section);
+            moveHighlight(el);
+        }
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        function smoothScrollTo(id) {
+            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+            if (window.innerWidth < 768) mobileMenu.classList.add('hidden');
+        }
+
+        // ==================== PORTFOLYO VERİLERİ (Orijinal Logolar) ====================
         const visualWorks = [
             { title: "Metin2TC - Karakter Paketi", img: "https://picsum.photos/id/1015/800/600", desc: "Oyun içi karakter ve logo tasarımı" },
             { title: "Kafkas 2 - Afiş Serisi", img: "https://picsum.photos/id/201/800/600", desc: "Sinematik tanıtım afişleri" },
@@ -174,56 +231,32 @@
         ];
 
         const videoProjects = [
-            { title: "Metin2TC", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png", isSpecial: true, videos: [
-                { id: "JOWkXkDfFr8", title: "Video 1" },
-                { id: "7LhpRxpch54", title: "Video 2" },
-                { id: "lMpO_31ffnc", title: "Video 3" }
-            ]},
-            { id: "BURAYA_KAFKAS2_ID", title: "Kafkas2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" },
-            { id: "BURAYA_KUZEY2_ID", title: "Kuzey2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" },
-            { id: "BURAYA_MERGEN2_ID", title: "Mergen2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" }
-        ];
-
-        // Mobil Menü ve diğer fonksiyonlar
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isOpen = false;
-
-        function toggleMobileMenu() {
-            isOpen = !isOpen;
-            if (isOpen) {
-                mobileMenu.classList.remove('hidden');
-                hamburger.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-            } else {
-                mobileMenu.classList.add('hidden');
-                hamburger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            { 
+                title: "Metin2TC", 
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png", 
+                isSpecial: true, 
+                videos: [
+                    { id: "JOWkXkDfFr8", title: "Video 1" },
+                    { id: "7LhpRxpch54", title: "Video 2" },
+                    { id: "lMpO_31ffnc", title: "Video 3" }
+                ]
+            },
+            { 
+                title: "Kafkas 2", 
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png", 
+                id: "BURAYA_KAFKAS2_ID" 
+            },
+            { 
+                title: "Kuzey 2", 
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png", 
+                id: "BURAYA_KUZEY2_ID" 
+            },
+            { 
+                title: "Mergen 2", 
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png", 
+                id: "BURAYA_MERGEN2_ID" 
             }
-        }
-
-        function closeMobileMenu() {
-            isOpen = false;
-            mobileMenu.classList.add('hidden');
-            hamburger.innerHTML = '<i class="fa-solid fa-bars"></i>';
-        }
-
-        hamburger.addEventListener('click', toggleMobileMenu);
-
-        function smoothScrollTo(id) {
-            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-            if (window.innerWidth < 768) closeMobileMenu();
-        }
-
-        function handleScrollAnimations() {
-            const elements = document.querySelectorAll('.fade-in');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, i) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-                    }
-                });
-            }, { threshold: 0.15 });
-            elements.forEach(el => observer.observe(el));
-        }
+        ];
 
         function renderVisuals() {
             let html = '';
@@ -255,7 +288,7 @@
                         </div>
                         <div id="metin2tc-videos" class="hidden md:col-span-2 grid grid-cols-1 gap-4 mt-6"></div>
                     `;
-                } else if (p.id) {
+                } else {
                     html += `
                         <div onclick="playVideo('${p.id}', '${p.title}')" class="video-card rounded-3xl cursor-pointer overflow-hidden fade-in">
                             <img src="${p.thumbnail}" loading="lazy" class="w-full h-64 object-contain p-8 bg-black" alt="${p.title}">
@@ -298,12 +331,30 @@
 
         function closeModal() {
             document.getElementById('video-modal').classList.add('hidden');
+            document.getElementById('modal-player').innerHTML = '';
+        }
+
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    }
+                });
+            }, { threshold: 0.15 });
+            elements.forEach(el => observer.observe(el));
         }
 
         window.onload = () => {
             renderVisuals();
             renderVideos();
             handleScrollAnimations();
+            
+            setTimeout(() => {
+                const firstLink = document.querySelector('.nav-link');
+                if (firstLink) moveHighlight(firstLink);
+            }, 400);
         };
     </script>
 </body>
