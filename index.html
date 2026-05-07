@@ -8,20 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@700&display=swap');
-        
-        body { 
-            font-family: 'Inter', system-ui, sans-serif; 
-            font-weight: 300;
-            scroll-behavior: smooth;
-        }
+        body { font-family: 'Inter', sans-serif; font-weight: 300; scroll-behavior: smooth; }
         .heading { font-family: 'Playfair Display', sans-serif; }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
+        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); }
+        
         .nav-btn:hover, .hero-btn:hover {
             background: #14b8a6;
             color: black;
@@ -51,10 +42,8 @@
             <p class="text-xl md:text-2xl text-zinc-400">Sinematik Hikâyeler • Görsel Dünyalar</p>
             
             <div class="mt-16 flex flex-col sm:flex-row gap-5 justify-center">
-                <button onclick="smoothScrollTo('portfolio')" 
-                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3">Portföyleri Keşfet <i class="fa-solid fa-arrow-down"></i></button>
-                <button onclick="smoothScrollTo('contact')" 
-                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400">İletişime Geç</button>
+                <button onclick="smoothScrollTo('portfolio')" class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3">Portföyleri Keşfet <i class="fa-solid fa-arrow-down"></i></button>
+                <button onclick="smoothScrollTo('contact')" class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400">İletişime Geç</button>
             </div>
         </div>
     </section>
@@ -102,10 +91,10 @@
 
     <script>
         const videoProjects = [
-            { id: "VIDEO_ID_BURAYA", title: "Metin2TC",   thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Kafkas2",   thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Kuzey2",    thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Mergen2",   thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" }
+            { id: "VIDEO_ID_BURAYA", title: "Metin2TC", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kafkas2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kuzey2",  thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Mergen2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" }
         ];
 
         function smoothScrollTo(id) {
