@@ -22,17 +22,9 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .nav-btn, .hero-btn {
-            transition: all 0.3s ease;
-        }
         .nav-btn:hover, .hero-btn:hover {
             background: #14b8a6;
             color: black;
-        }
-
-        /* Video Kartı - İçeriye Doğru Turkuaz Gölge */
-        .video-card {
-            transition: all 0.4s ease;
         }
         .video-card:hover {
             box-shadow: inset 0 0 25px rgba(20, 184, 166, 0.35);
@@ -60,14 +52,9 @@
             
             <div class="mt-16 flex flex-col sm:flex-row gap-5 justify-center">
                 <button onclick="smoothScrollTo('portfolio')" 
-                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3 bg-white text-black hover:bg-teal-400">
-                    Portföyleri Keşfet
-                    <i class="fa-solid fa-arrow-down"></i>
-                </button>
+                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3">Portföyleri Keşfet <i class="fa-solid fa-arrow-down"></i></button>
                 <button onclick="smoothScrollTo('contact')" 
-                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400 hover:text-teal-400">
-                    İletişime Geç
-                </button>
+                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400">İletişime Geç</button>
             </div>
         </div>
     </section>
@@ -77,13 +64,11 @@
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-20">Portföy</h2>
 
-            <!-- Görsel Çalışmalar -->
             <div class="mb-24">
                 <h3 class="text-3xl mb-10 text-center md:text-left">📸 Görsel Çalışmalar</h3>
                 <div id="visual-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </div>
 
-            <!-- Video Çalışmalar -->
             <div>
                 <h3 class="text-3xl mb-10 text-center md:text-left">🎥 Video Çalışmalar</h3>
                 <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
@@ -107,20 +92,20 @@
     <!-- VIDEO MODAL -->
     <div id="video-modal" class="hidden fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4">
         <div class="w-full max-w-5xl bg-zinc-900 rounded-3xl overflow-hidden">
-            <div class="p-6 border-b border-white/10 flex justify-between items-center">
+            <div class="p-6 border-b flex justify-between items-center">
                 <h3 id="modal-title" class="text-xl font-medium"></h3>
-                <button onclick="closeModal()" class="text-4xl leading-none hover:text-teal-400">×</button>
+                <button onclick="closeModal()" class="text-4xl">×</button>
             </div>
-            <div id="modal-player" class="aspect-video bg-black"></div>
+            <div id="modal-player" class="aspect-video"></div>
         </div>
     </div>
 
     <script>
         const videoProjects = [
-            { id: "VIDEO_ID_BURAYA", title: "Metin2TC",   thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/metin2tc.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Kafkas2",   thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/kafkas2.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Kuzey2",    thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/kuzey2.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Mergen2",   thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/mergen2.png" }
+            { id: "VIDEO_ID_BURAYA", title: "Metin2TC",   thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kafkas2",   thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kuzey2",    thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Mergen2",   thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" }
         ];
 
         function smoothScrollTo(id) {
@@ -128,8 +113,7 @@
         }
 
         function renderVideos() {
-            const container = document.getElementById('video-grid');
-            container.innerHTML = videoProjects.map(p => `
+            document.getElementById('video-grid').innerHTML = videoProjects.map(p => `
                 <div onclick="playVideo('${p.id}', '${p.title}')" 
                      class="video-card bg-zinc-800 rounded-3xl cursor-pointer overflow-hidden">
                     <img src="${p.thumbnail}" loading="lazy" class="w-full aspect-video object-cover" alt="${p.title}">
@@ -153,9 +137,7 @@
             document.getElementById('video-modal').classList.add('hidden');
         }
 
-        window.onload = () => {
-            renderVideos();
-        };
+        window.onload = renderVideos;
     </script>
 </body>
 </html>
