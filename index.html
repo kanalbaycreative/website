@@ -22,18 +22,20 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
+        .nav-btn, .hero-btn {
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover, .hero-btn:hover {
+            background: #14b8a6;
+            color: black;
+        }
+
+        /* Video Kartı - İçeriye Doğru Turkuaz Gölge */
         .video-card {
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
         }
         .video-card:hover {
-            transform: translateY(-20px) scale(1.05);
-            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.6);
-        }
-        .video-card img {
-            transition: transform 0.9s ease;
-        }
-        .video-card:hover img {
-            transform: scale(1.15);
+            box-shadow: inset 0 0 25px rgba(20, 184, 166, 0.35);
         }
     </style>
 </head>
@@ -42,9 +44,9 @@
     <!-- NAVBAR -->
     <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 glass rounded-3xl px-6 py-4 shadow-2xl">
         <div class="flex items-center gap-4 md:gap-8 text-sm font-medium">
-            <a onclick="smoothScrollTo('home')" class="glass-btn px-7 py-3 rounded-2xl cursor-pointer">Ana Sayfa</a>
-            <a onclick="smoothScrollTo('portfolio')" class="glass-btn px-7 py-3 rounded-2xl cursor-pointer">Portföy</a>
-            <a onclick="smoothScrollTo('contact')" class="glass-btn px-7 py-3 rounded-2xl cursor-pointer">İletişim</a>
+            <a onclick="smoothScrollTo('home')" class="nav-btn glass-btn px-7 py-3 rounded-2xl cursor-pointer">Ana Sayfa</a>
+            <a onclick="smoothScrollTo('portfolio')" class="nav-btn glass-btn px-7 py-3 rounded-2xl cursor-pointer">Portföy</a>
+            <a onclick="smoothScrollTo('contact')" class="nav-btn glass-btn px-7 py-3 rounded-2xl cursor-pointer">İletişim</a>
         </div>
     </nav>
 
@@ -56,10 +58,17 @@
             </h1>
             <p class="text-xl md:text-2xl text-zinc-400">Sinematik Hikâyeler • Görsel Dünyalar</p>
             
-            <button onclick="smoothScrollTo('portfolio')" 
-                    class="mt-16 px-10 py-6 rounded-3xl glass-btn text-lg font-medium flex items-center gap-3 mx-auto">
-                Portföyleri Keşfet <i class="fa-solid fa-arrow-down ml-2"></i>
-            </button>
+            <div class="mt-16 flex flex-col sm:flex-row gap-5 justify-center">
+                <button onclick="smoothScrollTo('portfolio')" 
+                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3 bg-white text-black hover:bg-teal-400">
+                    Portföyleri Keşfet
+                    <i class="fa-solid fa-arrow-down"></i>
+                </button>
+                <button onclick="smoothScrollTo('contact')" 
+                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400 hover:text-teal-400">
+                    İletişime Geç
+                </button>
+            </div>
         </div>
     </section>
 
@@ -86,12 +95,8 @@
     <section id="contact" class="py-24 bg-black">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="heading text-5xl md:text-6xl mb-12">İletişime Geç</h2>
-            <a href="mailto:kanalbaycreative@gmail.com" class="text-2xl hover:text-teal-400 block mb-4">
-                kanalbaycreative@gmail.com
-            </a>
-            <a href="https://instagram.com/kanalbaycreative" target="_blank" class="text-2xl hover:text-teal-400">
-                @kanalbaycreative
-            </a>
+            <a href="mailto:kanalbaycreative@gmail.com" class="text-2xl hover:text-teal-400 block mb-6">kanalbaycreative@gmail.com</a>
+            <a href="https://instagram.com/kanalbaycreative" target="_blank" class="text-2xl hover:text-teal-400">@kanalbaycreative</a>
         </div>
     </section>
 
@@ -111,35 +116,20 @@
     </div>
 
     <script>
-        // ====================== BURAYI KENDİ LİNKLERİNİZLE GÜNCELLEYİN ======================
-        const visualImages = [
-            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual1.jpg",
-            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual2.jpg",
-            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual3.jpg",
-            "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/images/visual4.jpg"
-        ];
-
         const videoProjects = [
-            { id: "VIDEO_ID_1", title: "Metin2TC",   thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/metin2tc.png" },
-            { id: "VIDEO_ID_2", title: "Kafkas2",   thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/kafkas2.png" },
-            { id: "VIDEO_ID_3", title: "Kuzey2",    thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/kuzey2.png" },
-            { id: "VIDEO_ID_4", title: "Mergen2",   thumbnail: "https://raw.githubusercontent.com/kullaniciadiniz/repo-adi/main/logos/mergen2.png" }
+            { id: "VIDEO_ID_BURAYA", title: "Metin2TC",   thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/metin2tc.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kafkas2",   thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/kafkas2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Kuzey2",    thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/kuzey2.png" },
+            { id: "VIDEO_ID_BURAYA", title: "Mergen2",   thumbnail: "https://raw.githubusercontent.com/KULLANICIADI/REPOADI/main/logos/mergen2.png" }
         ];
 
         function smoothScrollTo(id) {
             document.getElementById(id).scrollIntoView({ behavior: "smooth" });
         }
 
-        function renderVisual() {
-            document.getElementById('visual-grid').innerHTML = visualImages.map(src => `
-                <div class="aspect-[4/3] overflow-hidden rounded-3xl cursor-pointer shadow-xl">
-                    <img src="${src}" loading="lazy" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="">
-                </div>
-            `).join('');
-        }
-
         function renderVideos() {
-            document.getElementById('video-grid').innerHTML = videoProjects.map(p => `
+            const container = document.getElementById('video-grid');
+            container.innerHTML = videoProjects.map(p => `
                 <div onclick="playVideo('${p.id}', '${p.title}')" 
                      class="video-card bg-zinc-800 rounded-3xl cursor-pointer overflow-hidden">
                     <img src="${p.thumbnail}" loading="lazy" class="w-full aspect-video object-cover" alt="${p.title}">
@@ -163,9 +153,7 @@
             document.getElementById('video-modal').classList.add('hidden');
         }
 
-        // Sayfa yüklendiğinde
         window.onload = () => {
-            renderVisual();
             renderVideos();
         };
     </script>
