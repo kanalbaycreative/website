@@ -17,6 +17,7 @@
             scroll-behavior: smooth;
             background: #0a0a0a;
             color: #f1f5f9;
+            -webkit-tap-highlight-color: transparent;
         }
         .heading { font-family: 'Playfair Display', sans-serif; }
 
@@ -56,6 +57,8 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            padding-top: 110px;
+            padding-bottom: 60px;
         }
         .hero-section::before {
             content: '';
@@ -65,7 +68,7 @@
         }
 
         .hero-title {
-            font-size: clamp(3.8rem, 10vw, 8.5rem);
+            font-size: clamp(2.8rem, 8.5vw, 8.5rem);
             line-height: 1.05;
             letter-spacing: -0.05em;
             opacity: 0;
@@ -190,16 +193,16 @@
                 <span class="white">KANALBAY</span><br>
                 <span class="gradient">CREATIVE</span>
             </h1>
-            <p class="text-2xl md:text-3xl text-zinc-300 max-w-3xl mx-auto leading-relaxed fade-in" style="animation-delay: 400ms">
+            <p class="text-xl md:text-3xl text-zinc-300 max-w-3xl mx-auto leading-relaxed fade-in" style="animation-delay: 400ms">
                 Sinematik hikâyeler ve unutulmaz görsel dünyalar yaratıyoruz
             </p>
            
-            <div class="mt-20 flex flex-col sm:flex-row gap-6 justify-center fade-in" style="animation-delay: 700ms">
-                <button onclick="smoothScrollTo('portfolio')" class="hero-btn btn-primary">
+            <div class="mt-20 flex flex-col sm:flex-row gap-6 justify-center mx-auto fade-in" style="animation-delay: 700ms">
+                <button onclick="smoothScrollTo('portfolio')" class="hero-btn btn-primary mx-auto sm:mx-0">
                     Portföyleri Keşfet
                     <i class="fa-solid fa-arrow-down-long arrow-down"></i>
                 </button>
-                <button onclick="smoothScrollTo('contact')" class="hero-btn btn-secondary">
+                <button onclick="smoothScrollTo('contact')" class="hero-btn btn-secondary mx-auto sm:mx-0">
                     <span>İletişime Geç</span>
                     <i class="fa-solid fa-arrow-right arrow-right"></i>
                 </button>
@@ -207,25 +210,27 @@
         </div>
     </section>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="py-28 bg-[#0a0a0a]">
+    <!-- PORTFOLIO - Görsel ve Video yer değiştirildi -->
+    <section id="portfolio" class="py-20 md:py-28 bg-[#0a0a0a]">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-20 fade-in">Portföy</h2>
+            <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-16 md:mb-20 fade-in">Portföy</h2>
             
-            <div class="mb-24">
-                <h3 class="text-3xl text-center mb-12 fade-in">Görsel Çalışmalar</h3>
-                <div id="visual-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <!-- Video Çalışmalar (Şimdi üstte) -->
+            <div class="mb-20 md:mb-24">
+                <h3 class="text-3xl text-center mb-10 md:mb-12 fade-in">Video Çalışmalar</h3>
+                <div id="video-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8"></div>
             </div>
             
+            <!-- Görsel Çalışmalar (Şimdi altta) -->
             <div>
-                <h3 class="text-3xl text-center mb-12 fade-in">Video Çalışmalar</h3>
-                <div id="video-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+                <h3 class="text-3xl text-center mb-10 md:mb-12 fade-in">Görsel Çalışmalar</h3>
+                <div id="visual-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
             </div>
         </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="py-28 bg-black">
+    <section id="contact" class="py-20 md:py-28 bg-black">
         <div class="max-w-5xl mx-auto px-6 text-center">
             <h2 class="heading text-5xl md:text-6xl font-bold mb-6 fade-in">İletişime Geç</h2>
             <p class="text-xl text-zinc-400 max-w-2xl mx-auto mb-16 fade-in" style="animation-delay: 200ms">
@@ -283,7 +288,18 @@
         });
 
         function smoothScrollTo(id) {
-            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+            const element = document.getElementById(id);
+            if (!element) return;
+            
+            const navHeight = 110;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - navHeight;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+
             if (window.innerWidth < 768) mobileMenu.classList.add('hidden');
         }
 
