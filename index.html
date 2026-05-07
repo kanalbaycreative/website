@@ -8,17 +8,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@700&display=swap');
-        body { font-family: 'Inter', sans-serif; font-weight: 300; scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            font-weight: 300;
+            scroll-behavior: smooth;
+        }
         .heading { font-family: 'Playfair Display', sans-serif; }
 
-        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); }
-        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
         .nav-btn:hover, .hero-btn:hover {
             background: #14b8a6;
             color: black;
         }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #14b8a6, transparent);
+            bottom: -10px;
+            left: 10%;
+        }
+
+        .video-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(20, 184, 166, 0.25);
+            transition: all 0.4s ease;
+        }
         .video-card:hover {
-            box-shadow: inset 0 0 25px rgba(20, 184, 166, 0.35);
+            border-color: #14b8a6;
+            box-shadow: inset 0 0 20px rgba(20, 184, 166, 0.25);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 240px;
+            object-fit: contain;
+            object-position: center;
+            background: #111113;
+            padding: 30px;
         }
     </style>
 </head>
@@ -42,8 +81,10 @@
             <p class="text-xl md:text-2xl text-zinc-400">Sinematik Hikâyeler • Görsel Dünyalar</p>
             
             <div class="mt-16 flex flex-col sm:flex-row gap-5 justify-center">
-                <button onclick="smoothScrollTo('portfolio')" class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3">Portföyleri Keşfet <i class="fa-solid fa-arrow-down"></i></button>
-                <button onclick="smoothScrollTo('contact')" class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400">İletişime Geç</button>
+                <button onclick="smoothScrollTo('portfolio')" 
+                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium flex items-center gap-3">Portföyleri Keşfet <i class="fa-solid fa-arrow-down"></i></button>
+                <button onclick="smoothScrollTo('contact')" 
+                        class="hero-btn px-10 py-6 rounded-3xl text-lg font-medium border border-white/40 hover:border-teal-400">İletişime Geç</button>
             </div>
         </div>
     </section>
@@ -54,12 +95,12 @@
             <h2 class="heading text-5xl md:text-6xl font-bold text-center mb-20">Portföy</h2>
 
             <div class="mb-24">
-                <h3 class="text-3xl mb-10 text-center md:text-left">📸 Görsel Çalışmalar</h3>
+                <h3 class="section-title text-3xl mx-auto mb-12 text-center">Görsel Çalışmalar</h3>
                 <div id="visual-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </div>
 
             <div>
-                <h3 class="text-3xl mb-10 text-center md:text-left">🎥 Video Çalışmalar</h3>
+                <h3 class="section-title text-3xl mx-auto mb-12 text-center">Video Çalışmalar</h3>
                 <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
             </div>
         </div>
@@ -85,16 +126,36 @@
                 <h3 id="modal-title" class="text-xl font-medium"></h3>
                 <button onclick="closeModal()" class="text-4xl">×</button>
             </div>
-            <div id="modal-player" class="aspect-video"></div>
+            <div id="modal-player" class="aspect-video bg-black"></div>
         </div>
     </div>
 
     <script>
         const videoProjects = [
-            { id: "VIDEO_ID_BURAYA", title: "Metin2TC", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Kafkas2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Kuzey2",  thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" },
-            { id: "VIDEO_ID_BURAYA", title: "Mergen2", thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" }
+            { 
+                id: "PLIgadixzvY9iLcDWWGcoLyM9mAHSOTH_d", 
+                title: "Metin2TC", 
+                isPlaylist: true,
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png" 
+            },
+            { 
+                id: "VIDEO_ID_BURAYA", 
+                title: "Kafkas2", 
+                isPlaylist: false,
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kafkas2.png" 
+            },
+            { 
+                id: "VIDEO_ID_BURAYA", 
+                title: "Kuzey2", 
+                isPlaylist: false,
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/kuzey2.png" 
+            },
+            { 
+                id: "VIDEO_ID_BURAYA", 
+                title: "Mergen2", 
+                isPlaylist: false,
+                thumbnail: "https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/mergen2.png" 
+            }
         ];
 
         function smoothScrollTo(id) {
@@ -103,21 +164,30 @@
 
         function renderVideos() {
             document.getElementById('video-grid').innerHTML = videoProjects.map(p => `
-                <div onclick="playVideo('${p.id}', '${p.title}')" 
-                     class="video-card bg-zinc-800 rounded-3xl cursor-pointer overflow-hidden">
-                    <img src="${p.thumbnail}" loading="lazy" class="w-full aspect-video object-cover" alt="${p.title}">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-medium">${p.title}</h3>
+                <div onclick="playVideo('${p.id}', '${p.title}', ${p.isPlaylist})" 
+                     class="video-card rounded-3xl cursor-pointer overflow-hidden">
+                    <img src="${p.thumbnail}" loading="lazy" class="video-thumbnail" alt="${p.title}">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-medium tracking-wider">${p.title}</h3>
                     </div>
                 </div>
             `).join('');
         }
 
-        function playVideo(id, title) {
+        function playVideo(id, title, isPlaylist) {
             document.getElementById('modal-title').textContent = title;
+            
+            let embedUrl = isPlaylist 
+                ? `https://www.youtube.com/embed/videoseries?list=${id}&autoplay=1` 
+                : `https://www.youtube.com/embed/${id}?autoplay=1`;
+
             document.getElementById('modal-player').innerHTML = `
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" 
-                        frameborder="0" allowfullscreen allow="autoplay"></iframe>
+                <iframe width="100%" height="100%" 
+                        src="${embedUrl}" 
+                        frameborder="0" 
+                        allowfullscreen 
+                        allow="autoplay">
+                </iframe>
             `;
             document.getElementById('video-modal').classList.remove('hidden');
         }
