@@ -177,16 +177,16 @@
         function playVideo(id, title, isPlaylist) {
             document.getElementById('modal-title').textContent = title;
             
-            let embedUrl = isPlaylist 
+            let url = isPlaylist 
                 ? `https://www.youtube.com/embed/videoseries?list=${id}&autoplay=1` 
                 : `https://www.youtube.com/embed/${id}?autoplay=1`;
 
             document.getElementById('modal-player').innerHTML = `
                 <iframe width="100%" height="100%" 
-                        src="${embedUrl}" 
+                        src="${url}" 
                         frameborder="0" 
                         allowfullscreen 
-                        allow="autoplay">
+                        allow="autoplay; encrypted-media">
                 </iframe>
             `;
             document.getElementById('video-modal').classList.remove('hidden');
