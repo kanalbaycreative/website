@@ -394,6 +394,41 @@ body{
 
 }
 
+/* VIDEO MODAL ÖZEL STİLLERİ */
+#videoModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000; /* Diğer her şeyin üstünde */
+    align-items: center;
+    justify-content: center;
+}
+
+.video-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.close-video {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-video:hover {
+    color: #14b8a6;
+}    
+
 </style>
 </head>
 
@@ -565,7 +600,7 @@ Video 2
 
 </div>
 
-<!-- MERGEN -->
+<!-- UYGULAMA TANITIM -->
 
 <div>
 
@@ -579,7 +614,7 @@ Video 2
 
 <div class="video-content">
 <h3 class="text-5xl font-semibold">
-Mergen 2
+Uygulama Tanıtım
 </h3>
 </div>
 
@@ -588,15 +623,16 @@ Mergen 2
 </div>
 
 <div id="mergenVideos" class="video-list">
+    <!-- Örnek raw github linki: -->
+    <div class="video-item" onclick="openLocalVideo('https://raw.githubusercontent.com/kanalbaycreative/website/main/videolar/tanitim1.mp4')">
+        <i class="fa-solid fa-play text-teal-400"></i>
+        Video 1 (Uygulama Tanıtım)
+    </div>
 
-<div class="video-item" onclick="openVideo('BURAYA_ID')">
-<i class="fa-solid fa-play text-teal-400"></i>
-Video 1
-</div>
-
-<div class="video-item" onclick="openVideo('BURAYA_ID')">
-<i class="fa-solid fa-play text-teal-400"></i>
-Video 2
+    <div class="video-item" onclick="openLocalVideo('BURAYA_VIDEO_LINKI.mp4')">
+        <i class="fa-solid fa-play text-teal-400"></i>
+        Video 2
+    </div>
 </div>
 
 </div>
@@ -798,6 +834,17 @@ Instagram
 </section>
 
 <!-- IMAGE MODAL -->
+    
+<!-- VIDEO MODAL -->
+<div id="videoModal">
+    <div class="video-modal-content">
+        <span class="close-video" onclick="closeVideoModal()">&times;</span>
+        <video id="player" controls width="100%" poster="">
+            <source id="videoSource" src="" type="video/mp4">
+            Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+    </div>
+</div>
 
 <div id="imageModal" class="image-modal">
 
@@ -816,6 +863,32 @@ Instagram
 </footer>
 
 <script>
+
+/* YEREL VİDEO MODAL FONKSİYONLARI */
+function openLocalVideo(videoSrc) {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('player');
+    const source = document.getElementById('videoSource');
+
+    source.src = videoSrc;
+    video.load(); // Yeni kaynağı yükle
+    modal.style.display = 'flex';
+    video.play();
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('player');
+    
+    modal.style.display = 'none';
+    video.pause();
+    video.currentTime = 0; // Başa sar
+}
+
+// Modal dışına tıklayınca kapatma (Opsiyonel)
+document.getElementById('videoModal').onclick = function(e) {
+    if(e.target === this) closeVideoModal();
+};
 
 const observer = new IntersectionObserver((entries)=>{
 
