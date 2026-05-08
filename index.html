@@ -441,45 +441,52 @@ Sinematik hikâyeler ve unutulmaz görsel dünyalar yaratıyoruz
 
 <div class="flex flex-col sm:flex-row gap-6 justify-center mt-14">
 
-<a href="#portfolio" class="btn-primary px-10 py-5 rounded-full text-lg flex items-center gap-4 justify-center">
-Portföyleri Keşfet
-<i class="fa-solid fa-arrow-down-long"></i>
-</a>
+  <!-- Portfolio Button -->
+  <a 
+    href="#portfolio" 
+    class="btn-primary px-10 py-5 rounded-full text-lg flex items-center gap-4 justify-center"
+  >
+    Portföyleri Keşfet
+    <i class="fa-solid fa-arrow-down-long"></i>
+  </a>
 
-<a 
-  href="#contact"
-  class="group relative inline-flex items-center justify-center gap-4
-  px-10 py-5 rounded-full overflow-hidden
-  text-white font-medium tracking-wide"
->
+  <!-- Contact Button -->
+  <a 
+    href="#contact"
+    class="relative px-10 py-5 rounded-full text-lg
+    flex items-center gap-4 justify-center
+    overflow-hidden"
+  >
 
-  <!-- Animated Gradient Border -->
-  <span class="absolute inset-0 rounded-full p-[2px] animate-border">
-    <span class="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#14b8a6,#06b6d4,#2dd4bf,#14b8a6)]"></span>
-  </span>
+    <!-- Animated Gradient Border -->
+    <span class="absolute inset-0 rounded-full animate-border">
+      <span class="absolute inset-0 rounded-full border-[2px] border-transparent bg-[conic-gradient(from_0deg,#14b8a6,#06b6d4,#2dd4bf,#14b8a6,#06b6d4,#14b8a6)]"></span>
+    </span>
 
-  <!-- Inner Background -->
-  <span class="absolute inset-[2px] rounded-full bg-black"></span>
+    <!-- Inner Background -->
+    <span class="absolute inset-[2px] rounded-full bg-black"></span>
 
-  <!-- Content -->
-  <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-    İletişime Geç
-  </span>
+    <!-- Content -->
+    <span class="relative z-10 text-white">
+      İletişime Geç
+    </span>
 
-  <i class="fa-solid fa-arrow-right relative z-10 transition-transform duration-300 group-hover:translate-x-2"></i>
-</a>
+    <i class="fa-solid fa-arrow-right relative z-10 text-white"></i>
+  </a>
+
+</div>
 
 <style>
 .animate-border {
-  animation: rotateBorder 2s linear infinite;
+  animation: rotateGradient 3s linear infinite;
 }
 
-@keyframes rotateBorder {
-  from {
+@keyframes rotateGradient {
+  0% {
     transform: rotate(0deg);
   }
 
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
