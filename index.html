@@ -47,6 +47,7 @@ body{
 }
 
 /* NOISE */
+
 .noise{
     position:fixed;
     inset:0;
@@ -57,6 +58,7 @@ body{
 }
 
 /* CURSOR */
+
 .cursor-glow{
     position:fixed;
     width:300px;
@@ -64,10 +66,11 @@ body{
     background:radial-gradient(circle,rgba(20,184,166,.12),transparent 70%);
     pointer-events:none;
     z-index:2;
-    transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%)
 }
 
 /* NAVBAR */
+
 .glass-nav{
     backdrop-filter:blur(24px);
     background:rgba(10,10,10,.55);
@@ -99,6 +102,7 @@ body{
 }
 
 /* HERO */
+
 .hero{
     min-height:100vh;
     display:flex;
@@ -133,6 +137,7 @@ body{
 }
 
 /* SECTION */
+
 .section{
     padding:140px 0;
 }
@@ -141,7 +146,8 @@ body{
     font-size:clamp(3rem,6vw,5rem);
 }
 
-/* SCROLL */
+/* SCROLL ANIMATION */
+
 .fade-up{
     opacity:0;
     transform:translateY(60px);
@@ -153,9 +159,7 @@ body{
     transform:translateY(0);
 }
 
-/* ========================= */
-/* 🔥 FIXED VIDEO CARDS */
-/* ========================= */
+/* VIDEO CARDS */
 
 .video-card{
     position:relative;
@@ -174,7 +178,9 @@ body{
     height:220%;
     top:-60%;
     left:-60%;
-    background:conic-gradient(
+
+    background:
+    conic-gradient(
         from 0deg,
         transparent 0deg,
         transparent 120deg,
@@ -182,6 +188,7 @@ body{
         transparent 240deg,
         transparent 360deg
     );
+
     animation:rotateBorder 4s linear infinite;
 }
 
@@ -195,8 +202,15 @@ body{
 }
 
 @keyframes rotateBorder{
-    from{transform:rotate(0deg);}
-    to{transform:rotate(360deg);}
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 .video-inner{
@@ -204,19 +218,17 @@ body{
     z-index:2;
     overflow:hidden;
     border-radius:30px;
-    aspect-ratio:16/9;
 }
 
 .video-card img{
     width:100%;
-    height:100%;
+    height:320px;
     object-fit:cover;
-    display:block;
     transition:1s;
 }
 
 .video-card:hover img{
-    transform:scale(1.06);
+    transform:scale(1.05);
 }
 
 .video-card:hover{
@@ -238,7 +250,6 @@ body{
     padding:32px;
 }
 
-/* VIDEO LIST */
 .video-list{
     display:none;
     margin-top:20px;
@@ -255,9 +266,16 @@ body{
     align-items:center;
     gap:16px;
     cursor:pointer;
+    transition:.4s;
+}
+
+.video-item:hover{
+    border-color:rgba(20,184,166,.5);
+    background:#141414;
 }
 
 /* CATEGORY */
+
 .category-tabs{
     display:flex;
     gap:16px;
@@ -270,6 +288,7 @@ body{
     border-radius:999px;
     background:#101010;
     border:1px solid rgba(255,255,255,.06);
+    transition:.4s;
 }
 
 .category-btn.active,
@@ -278,7 +297,8 @@ body{
     color:#14b8a6;
 }
 
-/* GRID */
+/* DESIGN GRID */
+
 .design-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -290,22 +310,88 @@ body{
     aspect-ratio:1/1;
     overflow:hidden;
     border-radius:24px;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,.06);
+    transition:.5s;
+}
+
+.design-item:hover{
+    transform:translateY(-6px);
+    border-color:rgba(20,184,166,.5);
 }
 
 .design-item img{
     width:100%;
     height:100%;
     object-fit:cover;
+    transition:1s;
+}
+
+.design-item:hover img{
+    transform:scale(1.08);
+}
+
+/* CONTACT */
+
+.contact-box{
+    background:#0d0d0d;
+    border:1px solid rgba(255,255,255,.06);
+    transition:.5s;
+}
+
+.contact-box:hover{
+    border-color:rgba(20,184,166,.5);
+    transform:translateY(-6px);
+}
+
+/* MODAL */
+
+.image-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    z-index:9999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+}
+
+.image-modal img{
+    max-width:90%;
+    max-height:90vh;
+    border-radius:28px;
+}
+
+.close-modal{
+    position:absolute;
+    top:40px;
+    right:50px;
+    font-size:60px;
+    cursor:pointer;
+    color:white;
 }
 
 /* RESPONSIVE */
+
 @media(max-width:1024px){
-    .design-grid{grid-template-columns:repeat(2,1fr);}
+
+.design-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
 }
 
 @media(max-width:640px){
-    .section{padding:90px 0;}
-    .design-grid{grid-template-columns:1fr;}
+
+.section{
+    padding:90px 0;
+}
+
+.design-grid{
+    grid-template-columns:1fr;
+}
+
 }
 
 </style>
@@ -316,39 +402,99 @@ body{
 <div class="noise"></div>
 <div class="cursor-glow"></div>
 
+<!-- NAVBAR -->
+
 <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-8 py-5 rounded-full glass-nav w-[92%] max-w-[620px]">
-<div class="flex justify-center gap-10 text-sm uppercase tracking-[0.2em]">
+
+<div class="flex items-center justify-center gap-10 text-sm uppercase tracking-[0.2em]">
+
 <a href="#home" class="nav-link">Ana Sayfa</a>
+
 <a href="#portfolio" class="nav-link">Portföy</a>
+
 <a href="#contact" class="nav-link">İletişim</a>
+
 </div>
+
 </nav>
 
+<!-- HERO -->
+
 <section id="home" class="hero">
+
+<div class="max-w-7xl mx-auto px-6 relative z-10">
+
 <div class="text-center fade-up">
+
+<p class="uppercase tracking-[0.4em] text-zinc-400 mb-8 text-sm">
+Cinematic Creative Studio
+</p>
+
 <h1 class="hero-title heading font-bold">
-KANALBAY <br><span class="gradient-text">CREATIVE</span>
+KANALBAY <br>
+<span class="gradient-text">CREATIVE</span>
 </h1>
+
+<p class="max-w-3xl mx-auto text-zinc-300 text-2xl leading-relaxed mt-10">
+Sinematik hikâyeler ve unutulmaz görsel dünyalar yaratıyoruz
+</p>
+
+<div class="flex flex-col sm:flex-row gap-6 justify-center mt-14">
+
+<a href="#portfolio" class="btn-primary px-10 py-5 rounded-full text-lg flex items-center gap-4 justify-center">
+Portföyleri Keşfet
+<i class="fa-solid fa-arrow-down-long"></i>
+</a>
+
+<a href="#contact" class="border border-white/10 px-10 py-5 rounded-full hover:border-teal-500 transition flex items-center gap-4 justify-center">
+İletişime Geç
+<i class="fa-solid fa-arrow-right"></i>
+</a>
+
 </div>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="portfolio" class="section">
+<!-- PORTFOLIO -->
+
+<section id="portfolio" class="section border-t border-white/5">
+
+<div class="max-w-7xl mx-auto px-6">
+
+<div class="fade-up mb-24">
+
+<p class="text-teal-400 uppercase tracking-[0.3em] text-sm mb-5">
+Portföy
+</p>
+
+<h2 class="heading section-title">
+Video Çalışmalar
+</h2>
+
+</div>
 
 <div class="grid md:grid-cols-2 gap-8">
 
 <!-- METIN2TC -->
+
 <div>
 
 <div class="video-card fade-up" onclick="toggleVideos('metin2tcVideos')">
 
 <div class="video-inner">
 
-<img src="https://raw.githubusercontent.com/kanalbaycreative/website/main/logos/metin2tc.png">
+<img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1400&auto=format&fit=crop">
 
 <div class="video-overlay"></div>
 
 <div class="video-content">
-<h3 class="text-4xl">Metin2TC</h3>
+<h3 class="text-5xl font-semibold">
+Metin2TC
+</h3>
 </div>
 
 </div>
@@ -357,9 +503,232 @@ KANALBAY <br><span class="gradient-text">CREATIVE</span>
 
 <div id="metin2tcVideos" class="video-list">
 
-<div class="video-item" onclick="openVideo('JOWkXkDfFr8')">Video 1</div>
-<div class="video-item" onclick="openVideo('7LhpRxpch54')">Video 2</div>
-<div class="video-item" onclick="openVideo('lMpO_31ffnc')">Video 3</div>
+<div class="video-item" onclick="openVideo('JOWkXkDfFr8')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 1
+</div>
+
+<div class="video-item" onclick="openVideo('7LhpRxpch54')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 2
+</div>
+
+<div class="video-item" onclick="openVideo('lMpO_31ffnc')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 3
+</div>
+
+</div>
+
+</div>
+
+<!-- KAFKAS -->
+
+<div>
+
+<div class="video-card fade-up" onclick="toggleVideos('kafkasVideos')">
+
+<div class="video-inner">
+
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop">
+
+<div class="video-overlay"></div>
+
+<div class="video-content">
+<h3 class="text-5xl font-semibold">
+Kafkas 2
+</h3>
+</div>
+
+</div>
+
+</div>
+
+<div id="kafkasVideos" class="video-list">
+
+<div class="video-item" onclick="openVideo('BURAYA_ID')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 1
+</div>
+
+<div class="video-item" onclick="openVideo('BURAYA_ID')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 2
+</div>
+
+</div>
+
+</div>
+
+<!-- MERGEN -->
+
+<div>
+
+<div class="video-card fade-up" onclick="toggleVideos('mergenVideos')">
+
+<div class="video-inner">
+
+<img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1400&auto=format&fit=crop">
+
+<div class="video-overlay"></div>
+
+<div class="video-content">
+<h3 class="text-5xl font-semibold">
+Mergen 2
+</h3>
+</div>
+
+</div>
+
+</div>
+
+<div id="mergenVideos" class="video-list">
+
+<div class="video-item" onclick="openVideo('BURAYA_ID')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 1
+</div>
+
+<div class="video-item" onclick="openVideo('BURAYA_ID')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 2
+</div>
+
+</div>
+
+</div>
+
+<!-- KUZEY -->
+
+<div>
+
+<div class="video-card fade-up" onclick="toggleVideos('kuzeyVideos')">
+
+<div class="video-inner">
+
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1400&auto=format&fit=crop">
+
+<div class="video-overlay"></div>
+
+<div class="video-content">
+<h3 class="text-5xl font-semibold">
+Kuzey 2
+</h3>
+</div>
+
+</div>
+
+</div>
+
+<div id="kuzeyVideos" class="video-list">
+
+<div class="video-item" onclick="openVideo('BURAYA_ID')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 1
+</div>
+
+<div class="video-item" onclick="openVideo('BURAYA_ID')">
+<i class="fa-solid fa-play text-teal-400"></i>
+Video 2
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VISUAL -->
+
+<div class="mt-40 fade-up">
+
+<p class="text-teal-400 uppercase tracking-[0.3em] text-sm mb-5">
+Portföy
+</p>
+
+<h2 class="heading section-title mb-16">
+Görsel Çalışmalar
+</h2>
+
+<div class="category-tabs">
+
+<button class="category-btn active" onclick="showCategory('gida', this)">
+Gıda
+</button>
+
+<button class="category-btn" onclick="showCategory('mobilya', this)">
+Mobilya
+</button>
+
+<button class="category-btn" onclick="showCategory('moda', this)">
+Moda
+</button>
+
+</div>
+
+<!-- GIDA -->
+
+<div id="gida" class="design-grid">
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+</div>
+
+<!-- MOBILYA -->
+
+<div id="mobilya" class="design-grid hidden">
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+</div>
+
+<!-- MODA -->
+
+<div id="moda" class="design-grid hidden">
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="design-item" onclick="openImage(this)">
+<img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1200&auto=format&fit=crop">
+</div>
 
 </div>
 
@@ -369,23 +738,173 @@ KANALBAY <br><span class="gradient-text">CREATIVE</span>
 
 </section>
 
+<!-- CONTACT -->
+
+<section id="contact" class="section border-t border-white/5">
+
+<div class="max-w-5xl mx-auto px-6 text-center">
+
+<h2 class="heading text-6xl mb-8 fade-up">
+İletişime Geç
+</h2>
+
+<p class="text-zinc-400 text-xl max-w-2xl mx-auto mb-16 fade-up">
+Projeleriniz için birlikte çalışalım. Fikirlerinizi duymak isteriz.
+</p>
+
+<div class="grid md:grid-cols-2 gap-8">
+
+<a href="mailto:kanalbaycreative@gmail.com" class="contact-box rounded-[32px] p-10 fade-up">
+
+<div class="w-20 h-20 rounded-2xl bg-teal-500/10 flex items-center justify-center mx-auto mb-8">
+<i class="fa-solid fa-envelope text-4xl text-teal-400"></i>
+</div>
+
+<h3 class="text-3xl mb-4">
+E-Posta
+</h3>
+
+<p class="text-zinc-400">
+kanalbaycreative@gmail.com
+</p>
+
+</a>
+
+<a href="https://instagram.com/kanalbaycreative" target="_blank" class="contact-box rounded-[32px] p-10 fade-up">
+
+<div class="w-20 h-20 rounded-2xl bg-teal-500/10 flex items-center justify-center mx-auto mb-8">
+<i class="fa-brands fa-instagram text-4xl text-teal-400"></i>
+</div>
+
+<h3 class="text-3xl mb-4">
+Instagram
+</h3>
+
+<p class="text-zinc-400">
+@kanalbaycreative
+</p>
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- IMAGE MODAL -->
+
+<div id="imageModal" class="image-modal">
+
+<span class="close-modal" onclick="closeImage()">
+×
+</span>
+
+<img id="modalImage">
+
+</div>
+
+<!-- FOOTER -->
+
+<footer class="py-12 border-t border-white/5 text-center text-zinc-600">
+© 2026 Kanalbay Creative
+</footer>
+
 <script>
 
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting)e.target.classList.add('show');
-});
-});
+const observer = new IntersectionObserver((entries)=>{
 
-document.querySelectorAll('.fade-up').forEach(e=>observer.observe(e));
+entries.forEach(entry=>{
 
-function toggleVideos(id){
-const el=document.getElementById(id);
-el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
+if(entry.isIntersecting){
+entry.target.classList.add('show');
 }
 
-function openVideo(id){
-window.open("https://www.youtube.com/watch?v="+id,"_blank");
+});
+
+},{
+threshold:0.15
+});
+
+document.querySelectorAll('.fade-up').forEach(el=>{
+observer.observe(el);
+});
+
+/* CURSOR */
+
+const glow = document.querySelector('.cursor-glow');
+
+window.addEventListener('mousemove',(e)=>{
+
+glow.style.left = e.clientX + 'px';
+glow.style.top = e.clientY + 'px';
+
+});
+
+/* VIDEO */
+
+function toggleVideos(id){
+
+const all = document.querySelectorAll('.video-list');
+
+all.forEach(item=>{
+
+if(item.id !== id){
+item.style.display = 'none';
+}
+
+});
+
+const target = document.getElementById(id);
+
+if(target.style.display === 'flex'){
+target.style.display = 'none';
+}else{
+target.style.display = 'flex';
+}
+
+}
+
+function openVideo(videoId){
+
+window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+
+}
+
+/* CATEGORY */
+
+function showCategory(category, button){
+
+document.querySelectorAll('.design-grid').forEach(gallery=>{
+gallery.classList.add('hidden');
+});
+
+document.getElementById(category).classList.remove('hidden');
+
+document.querySelectorAll('.category-btn').forEach(btn=>{
+btn.classList.remove('active');
+});
+
+button.classList.add('active');
+
+}
+
+/* IMAGE MODAL */
+
+function openImage(element){
+
+const img = element.querySelector('img');
+
+document.getElementById('modalImage').src = img.src;
+
+document.getElementById('imageModal').style.display = 'flex';
+
+}
+
+function closeImage(){
+
+document.getElementById('imageModal').style.display = 'none';
+
 }
 
 </script>
