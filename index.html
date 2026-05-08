@@ -446,10 +446,49 @@ Portföyleri Keşfet
 <i class="fa-solid fa-arrow-down-long"></i>
 </a>
 
-<a href="#contact" class="border border-white/10 px-10 py-5 rounded-full hover:border-teal-500 transition flex items-center gap-4 justify-center">
-İletişime Geç
-<i class="fa-solid fa-arrow-right"></i>
+<a 
+  href="#contact"
+  class="group relative inline-flex items-center justify-center gap-4
+  px-10 py-5 rounded-full text-white font-medium tracking-wide
+  overflow-hidden transition-all duration-300
+  bg-[length:200%_200%]
+  animate-gradient-x"
+>
+  
+  <!-- Animated Gradient Background -->
+  <span class="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-[#0ea5e9] to-[#14b8a6]"></span>
+
+  <!-- Apple style soft overlay -->
+  <span class="absolute inset-[1px] rounded-full bg-[#0b0f19]"></span>
+
+  <!-- Content -->
+  <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+    İletişime Geç
+  </span>
+
+  <i class="fa-solid fa-arrow-right relative z-10 transition-transform duration-300 group-hover:translate-x-2"></i>
 </a>
+
+<style>
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x span:first-child {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
+</style>
 
 </div>
 
