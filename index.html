@@ -449,17 +449,17 @@ Portföyleri Keşfet
 <a 
   href="#contact"
   class="group relative inline-flex items-center justify-center gap-4
-  px-10 py-5 rounded-full text-white font-medium tracking-wide
-  overflow-hidden transition-all duration-300
-  bg-[length:200%_200%]
-  animate-gradient-x"
+  px-10 py-5 rounded-full overflow-hidden
+  text-white font-medium tracking-wide"
 >
-  
-  <!-- Animated Gradient Background -->
-  <span class="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-[#0ea5e9] to-[#14b8a6]"></span>
 
-  <!-- Apple style soft overlay -->
-  <span class="absolute inset-[1px] rounded-full bg-[#0b0f19]"></span>
+  <!-- Animated Gradient Border -->
+  <span class="absolute inset-0 rounded-full p-[2px] animate-border">
+    <span class="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#14b8a6,#06b6d4,#2dd4bf,#14b8a6)]"></span>
+  </span>
+
+  <!-- Inner Background -->
+  <span class="absolute inset-[2px] rounded-full bg-black"></span>
 
   <!-- Content -->
   <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
@@ -470,23 +470,18 @@ Portföyleri Keşfet
 </a>
 
 <style>
-@keyframes gradient-x {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+.animate-border {
+  animation: rotateBorder 2s linear infinite;
 }
 
-.animate-gradient-x span:first-child {
-  background-size: 200% 200%;
-  animation: gradient-x 6s ease infinite;
+@keyframes rotateBorder {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
 
